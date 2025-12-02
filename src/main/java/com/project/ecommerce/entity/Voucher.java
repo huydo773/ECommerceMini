@@ -21,13 +21,18 @@ public class Voucher {
     @Column(name = "expireDate")
     private LocalDateTime expireDate;
 
+    @ManyToOne
+    @JoinColumn(name="order_id")
+    private Order order;
+
     public Voucher() {
     }
 
-    public Voucher(String voucherCode, double discountPercentage, LocalDateTime expireDate) {
+    public Voucher(String voucherCode, double discountPercentage, LocalDateTime expireDate, Order order) {
         this.voucherCode = voucherCode;
         this.discountPercentage = discountPercentage;
         this.expireDate = expireDate;
+        this.order = order;
     }
 
     public int getId() {
@@ -60,5 +65,13 @@ public class Voucher {
 
     public void setExpireDate(LocalDateTime expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
