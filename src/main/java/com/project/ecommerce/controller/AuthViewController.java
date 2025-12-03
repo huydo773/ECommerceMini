@@ -1,14 +1,12 @@
 package com.project.ecommerce.controller;
 
+import com.project.ecommerce.dto.RegisterDTO;
 import com.project.ecommerce.service.AuthService;
 import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +36,27 @@ public class AuthViewController {
         }
 
         return "dashboard"; // render dashboard.html
+    }
+
+    // Hiển thị form đăng ký
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("registerRequest", new RegisterDTO());
+        return "register"; // register.html
+    }
+
+    // Xử lý submit form
+    @PostMapping("/register")
+    public String processRegister(@ModelAttribute("registerRequest") RegisterDTO request,
+                                  Model model) {
+        try {
+            authService.register(request);
+            model.addAttribute("success", "Đăng ký thành công!");
+            return "register"; // trở lại form nhưng có thông báo thành công
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "register";
+        }
     }
 
     @GetMapping("/dashboard")
