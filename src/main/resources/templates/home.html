@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce Mini - Home</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <h1 class="logo">ShopMini</h1>
+
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="header-right">
+            <a th:href="@{/auth/login}" class="login">Đăng nhập</a>
+            <div class="cart">
+                🛒
+                <span class="cart-count">2</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h2>Khám phá những sản phẩm tốt nhất hôm nay!</h2>
+            <p>Mua sắm dễ dàng – Giao hàng nhanh – Ưu đãi cực lớn.</p>
+            <button class="btn-primary">Mua ngay</button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f"
+             class="hero-img">
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="container section">
+    <h3 class="section-title">Danh mục nổi bật</h3>
+
+    <div class="grid-4">
+        <div class="category-card">
+            <img src="https://img.icons8.com/color/96/shoes.png">
+            <p>Giày</p>
+        </div>
+        <div class="category-card">
+            <img src="https://img.icons8.com/color/96/t-shirt.png">
+            <p>Áo</p>
+        </div>
+        <div class="category-card">
+            <img src="https://img.icons8.com/color/96/headphones.png">
+            <p>Phụ kiện</p>
+        </div>
+        <div class="category-card">
+            <img src="https://img.icons8.com/color/96/backpack.png">
+            <p>Balo</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="container section">
+    <h3 class="section-title">Sản phẩm nổi bật</h3>
+
+    <div class="grid-4">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
+            <h4>Tai nghe Bluetooth</h4>
+            <p class="price">499.000đ</p>
+            <button class="btn-primary full">Thêm vào giỏ</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f">
+            <h4>Đồng hồ Classic</h4>
+            <p class="price">1.299.000đ</p>
+            <button class="btn-primary full">Thêm vào giỏ</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1600180758895-7d5d0d73ab60">
+            <h4>Giày Sneaker</h4>
+            <p class="price">899.000đ</p>
+            <button class="btn-primary full">Thêm vào giỏ</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f">
+            <h4>Túi xách Mini</h4>
+            <p class="price">629.000đ</p>
+            <button class="btn-primary full">Thêm vào giỏ</button>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+/* Core */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* Header */
+.header {
+    background: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #1d4ed8;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.nav a {
+    margin: 0 15px;
+    color: #555;
+    text-decoration: none;
+}
+.nav a:hover {
+    color: #1d4ed8;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart {
+    position: relative;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: #fff;
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 50%;
+}
+
+
+/* Hero */
+.hero {
+    margin-top: 90px;
+    background: linear-gradient(to right, #1d4ed8, #3b82f6);
+    color: white;
+    padding: 60px 0;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text h2 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hero-img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background: white;
+    color: #1d4ed8;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-primary:hover {
+    background: #f0f0f0;
+}
+
+.full {
+    width: 100%;
+}
+
+
+/* Category */
+.section {
+    margin-top: 50px;
+}
+
+.section-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.category-card, .product-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.category-card:hover,
+.product-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.price {
+    color: #1d4ed8;
+    font-weight: bold;
+    margin-top: 8px;
+}
