@@ -13,7 +13,6 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // Secret key đủ mạnh cho HS256 (>= 256 bit)
     private static final String SECRET_STRING = "thisIsAVerySecureSecretKeyWithMoreThan32Bytes!";
     private static final Key SECRET_KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
 
