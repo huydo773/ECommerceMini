@@ -22,5 +22,5 @@ async function login() {
 
     const data = await res.json();
     localStorage.setItem("token", data.token);
-    window.location.href = "/dashboard";
+    window.location.href = "/dashboard/home";
 }

@@ -1,7 +1,11 @@
 package com.project.ecommerce.config;
 
+import com.project.ecommerce.entity.Category;
+import com.project.ecommerce.entity.Product;
 import com.project.ecommerce.entity.Role;
 import com.project.ecommerce.entity.User;
+import com.project.ecommerce.repository.CategoryRepo;
+import com.project.ecommerce.repository.ProductRepo;
 import com.project.ecommerce.repository.RoleRepo;
 import com.project.ecommerce.repository.UserRepo;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +20,7 @@ public class DataInit {
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
-    CommandLineRunner initUsers(UserRepo userRepo, RoleRepo roleRepo) {
+    CommandLineRunner initUsers(UserRepo userRepo, RoleRepo roleRepo, ProductRepo productRepo, CategoryRepo categoryRepo) {
         return args -> {
             if (userRepo.findByUsername("admin").isEmpty()) {
                 Role adminRole = new Role();
@@ -42,6 +46,30 @@ public class DataInit {
                 user.setRole(userRole);  // gán role đã lưu
                 userRepo.save(user);
             }
+
+            //Tao product
+            Product product1 = new Product();
+            product1.setProductName("product1");
+            product1.setDescription("TuyetVoi");
+            product1.setPrice(50.0);
+            product1.setQuantity(3);
+            Category category1 = new Category();
+            category1.setCategoryName("PC");
+            categoryRepo.save(category1);
+            product1.setCategory(category1);
+            productRepo.save(product1);
+
+
+            Product product2 = new Product();
+            product2.setProductName("product2");
+            product2.setDescription("Fantastic");
+            product2.setPrice(40.0);
+            product2.setQuantity(5);
+            Category category2 = new Category();
+            category2.setCategoryName("Laptop");
+            categoryRepo.save(category2);
+            product2.setCategory(category2);
+            productRepo.save(product2);
         };
     }
 }

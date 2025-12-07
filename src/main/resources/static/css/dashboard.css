@@ -10,24 +10,55 @@ body {
     background: #f4f6f9;
 }
 
+/* ===== SIDEBAR CONTAINER ===== */
 .sidebar {
     width: 240px;
     background: #1e1e2f;
-    color: white;
     height: 100vh;
-    padding: 20px;
+    padding: 25px 20px;
+    color: white;
 }
 
+/* ===== SIDEBAR TITLE ===== */
+.sidebar h2 {
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* ===== SIDEBAR MENU ===== */
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Spacing từng item */
 .sidebar ul li {
-    padding: 12px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: 0.3s;
+    margin-bottom: 12px;
 }
 
-.sidebar ul li:hover, .sidebar ul .active {
+/* ===== LINK STYLE ===== */
+.sidebar ul li a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #d4d4e8;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* ===== HOVER ===== */
+.sidebar ul li a:hover {
     background: #3e3e55;
+    color: #ffffff;
+}
+
+/* ===== ACTIVE MENU ITEM ===== */
+.sidebar ul li a.active {
+    background: #53536b;
+    color: #ffffff;
 }
 
 .main {

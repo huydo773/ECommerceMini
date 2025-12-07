@@ -1,0 +1,30 @@
+package com.project.ecommerce.mapper;
+
+import com.project.ecommerce.dto.ProductManageDTO;
+import com.project.ecommerce.entity.Product;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+@Component
+public class ProductMapper {
+    public ProductManageDTO toProductManageDTO(Product product) {
+        ProductManageDTO productManageDTO = new ProductManageDTO();
+        productManageDTO.setId(product.getId());
+        productManageDTO.setProductName(product.getProductName());
+        productManageDTO.setProductDescription(product.getDescription());
+        productManageDTO.setProductPrice(product.getPrice());
+        productManageDTO.setProductQuantity(product.getQuantity());
+        productManageDTO.setProductCategory(product.getCategory().getCategoryName());
+        productManageDTO.setProductImage(product.getImage());
+        return productManageDTO;
+    }
+    public List<ProductManageDTO> toProductManageDTO(List<Product> products) {
+        List<ProductManageDTO> productManageDTOs = new ArrayList<>();
+        for (Product product : products) {
+            ProductManageDTO productManageDTO = toProductManageDTO(product);
+            productManageDTOs.add(productManageDTO);
+        }
+        return productManageDTOs;
+    }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <style>
+        body { background: #f7f7f7; }
+        .container-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        .table thead tr {
+            background: #343a40;
+            color: #fff;
+        }
+        .btn-action { padding: 4px 10px; }
+    </style>
+</head>
+
+<body>
+<div class="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+        <li><a th:href="@{/dashboard/home}">Home</a></li>
+        <li><a th:href="@{/dashboard/productManagement}">Products</a></li>
+        <li><a th:href="@{/dashboard/order}">Order</a></li>
+        <li><a th:href="@{/dashboard/user}">Users</a></li>
+        <li><a th:href="@{/dashboard/voucher}">Voucher</a></li>
+        <li><a th:href="@{/dashboard/setting}">Settings</a></li>
+    </ul>
+</div>
+<div class="container">
+    <div class="container-box">
+
+        <div class="d-flex justify-content-between mb-3">
+            <h3>Product List</h3>
+            <a class="btn btn-primary" th:href="@{/dashboard/product/add}">+ Add Product</a>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="p, iter : ${products}">
+                <td th:text="${iter.index + 1}"></td>
+                <td th:text="${p.productName}"></td>
+                <td th:text="${p.productDescription}"></td>
+                <td th:text="${p.productPrice}"></td>
+                <td th:text="${p.productQuantity}"></td>
+                <td th:text="${p.productCategory}"></td>
+                <td th:text="${p.productImage}"></td>
+                <td>
+                    <a class="btn btn-sm btn-warning btn-action"
+                       th:href="@{'/dashboard/product/edit/' + ${p.id}}">Edit</a>
+
+                    <a class="btn btn-sm btn-danger btn-action"
+                       th:href="@{'/dashboard/product/delete/' + ${p.id}}"
+                       onclick="return confirm('Delete this product?')">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
