@@ -26,7 +26,7 @@ public class DashboardController {
 
     @GetMapping("/productManagement")
     public String productPage(Model model) {
-        model.addAttribute("products",productService.findAll());
+        model.addAttribute("products",productService.getProductsForAdmin());
         return "productManagement";
     }
 

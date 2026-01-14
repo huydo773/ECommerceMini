@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,56 +48,44 @@
     <h3 class="section-title">Danh mục nổi bật</h3>
 
     <div class="grid-4">
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/shoes.png">
-            <p>Giày</p>
-        </div>
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/t-shirt.png">
-            <p>Áo</p>
-        </div>
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/headphones.png">
-            <p>Phụ kiện</p>
-        </div>
-        <div class="category-card">
-            <img src="https://img.icons8.com/color/96/backpack.png">
-            <p>Balo</p>
+        <div class="category-card"
+             th:each="c : ${categoryList}">
+
+            <a th:href="@{/category/{id}(id=${c.id})}">
+                <p th:text="${c.name}"></p>
+            </a>
+
         </div>
     </div>
 </section>
 
 <!-- PRODUCTS -->
-<section class="container section">
-    <h3 class="section-title">Sản phẩm nổi bật</h3>
+<section class="container section"
+         th:each="entry : ${productList}">
 
+    <!-- CATEGORY NAME -->
+    <h3 class="section-title"
+        th:text="${entry.key.name}">
+        Category name
+    </h3>
+
+    <!-- PRODUCT LIST -->
     <div class="grid-4">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
-            <h4>Tai nghe Bluetooth</h4>
-            <p class="price">499.000đ</p>
-            <button class="btn-primary full">Thêm vào giỏ</button>
-        </div>
+        <div class="product-card"
+             th:each="product : ${entry.value}">
 
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f">
-            <h4>Đồng hồ Classic</h4>
-            <p class="price">1.299.000đ</p>
-            <button class="btn-primary full">Thêm vào giỏ</button>
-        </div>
+            <a th:href="@{/products/{id}(id=${product.id})}">
+                <img th:src="${product.image}">
+            </a>
 
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1600180758895-7d5d0d73ab60">
-            <h4>Giày Sneaker</h4>
-            <p class="price">899.000đ</p>
-            <button class="btn-primary full">Thêm vào giỏ</button>
-        </div>
+            <h4 th:text="${product.productName}"></h4>
+            <p class="price"
+               th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + 'đ'">
+            </p>
 
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f">
-            <h4>Túi xách Mini</h4>
-            <p class="price">629.000đ</p>
-            <button class="btn-primary full">Thêm vào giỏ</button>
+            <button class="btn-primary full">
+                Thêm vào giỏ
+            </button>
         </div>
     </div>
 </section>

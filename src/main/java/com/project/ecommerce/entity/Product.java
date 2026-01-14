@@ -24,6 +24,9 @@ public class Product {
     @Column(name="image")
     private String image;
 
+    @Column(name="sold_count")
+    private int soldCount;
+
 
     @ManyToOne
     @JoinColumn(name="category_id")
@@ -36,12 +39,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, String description, double price, int quantity, String image, Category category, User user) {
+    public Product(String productName, String description, double price, int quantity, String image,int soldCount, Category category, User user) {
         this.productName = productName;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.image = image;
+        this.soldCount = soldCount;
         this.category = category;
         this.user = user;
     }
@@ -92,6 +96,13 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getSoldCount() {
+        return soldCount;
+    }
+    public void setSoldCount(int soldCount) {
+        this.soldCount = soldCount;
     }
 
     public Category getCategory() {

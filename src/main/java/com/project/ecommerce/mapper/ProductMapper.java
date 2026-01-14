@@ -1,5 +1,6 @@
 package com.project.ecommerce.mapper;
 
+import com.project.ecommerce.dto.ProductListDTO;
 import com.project.ecommerce.dto.ProductManageDTO;
 import com.project.ecommerce.entity.Product;
 import org.springframework.stereotype.Component;
@@ -26,5 +27,13 @@ public class ProductMapper {
             productManageDTOs.add(productManageDTO);
         }
         return productManageDTOs;
+    }
+    public  static ProductListDTO toProductListDTO(Product p) {
+        ProductListDTO productListDTO = new ProductListDTO();
+        productListDTO.setId(p.getId());
+        productListDTO.setProductName(p.getProductName());
+        productListDTO.setPrice(p.getPrice());
+        productListDTO.setImage(p.getImage());
+        return productListDTO;
     }
 }
