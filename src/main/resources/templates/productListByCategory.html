@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/ProductByCategory.css}">
 </head>
 <body>
 <section class="container section">
@@ -12,7 +13,7 @@
         <div class="product-card"
              th:each="p : ${productList}">
 
-            <a th:href="@{/productList/{id}(id=${p.id})}">
+            <a th:href="@{/products/{id}(id=${p.id})}">
                 <img th:src="${p.image}">
             </a>
 

@@ -1,6 +1,7 @@
 package com.project.ecommerce.service;
 
 import com.project.ecommerce.dto.CategoryDTO;
+import com.project.ecommerce.dto.ProductDetailDTO;
 import com.project.ecommerce.dto.ProductListDTO;
 import com.project.ecommerce.dto.ProductManageDTO;
 import com.project.ecommerce.entity.Product;
@@ -16,4 +17,6 @@ public interface ProductService {
     Map<CategoryDTO, List<ProductListDTO>> getFeaturedProductsForHome();
 
     List<ProductListDTO> getProductsByCategory(int categoryId);
+
+    ProductDetailDTO getProductDetail(int id);
 }

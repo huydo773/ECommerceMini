@@ -30,11 +30,10 @@ public class DataInit {
                 User user = new User();
                 user.setUsername("admin");
                 user.setPassword(passwordEncoder.encode("admin123"));
-                user.setRole(adminRole);  // gán role đã lưu
+                user.setRole(adminRole);
                 userRepo.save(user);
             }
 
-            // Tạo user mặc định
             if (userRepo.findByUsername("user").isEmpty()) {
                 Role userRole = new Role();
                 userRole.setRoleName("User");
@@ -43,16 +42,17 @@ public class DataInit {
                 User user = new User();
                 user.setUsername("user");
                 user.setPassword(passwordEncoder.encode("user123"));
-                user.setRole(userRole);  // gán role đã lưu
+                user.setRole(userRole);
                 userRepo.save(user);
             }
 
             //Tao product
             Product product1 = new Product();
-            product1.setProductName("product1");
+            product1.setProductName("PC gaming");
             product1.setDescription("TuyetVoi");
             product1.setPrice(50.0);
             product1.setQuantity(3);
+            product1.setImage("https://th.bing.com/th/id/OIP.8vV5DxsTNqVwrxbQ1Vw_swHaHa?w=169&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7");
             Category category1 = new Category();
             category1.setCategoryName("PC");
             categoryRepo.save(category1);
@@ -61,10 +61,11 @@ public class DataInit {
 
 
             Product product2 = new Product();
-            product2.setProductName("product2");
+            product2.setProductName("Lenovo LOQ 2024");
             product2.setDescription("Fantastic");
             product2.setPrice(40.0);
             product2.setQuantity(5);
+            product2.setImage("https://th.bing.com/th/id/OIP.gH5DgPZjsxgemckNwlR1bAHaGk?w=204&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7");
             Category category2 = new Category();
             category2.setCategoryName("Laptop");
             categoryRepo.save(category2);

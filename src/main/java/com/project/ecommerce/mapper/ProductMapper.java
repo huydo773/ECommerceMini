@@ -1,5 +1,6 @@
 package com.project.ecommerce.mapper;
 
+import com.project.ecommerce.dto.ProductDetailDTO;
 import com.project.ecommerce.dto.ProductListDTO;
 import com.project.ecommerce.dto.ProductManageDTO;
 import com.project.ecommerce.entity.Product;
@@ -36,4 +37,16 @@ public class ProductMapper {
         productListDTO.setImage(p.getImage());
         return productListDTO;
     }
+
+    public static ProductDetailDTO  toProductDetailDTO(Product p) {
+        ProductDetailDTO productDetailDTO = new ProductDetailDTO();
+        productDetailDTO.setId(p.getId());
+        productDetailDTO.setName(p.getProductName());
+        productDetailDTO.setPrice(p.getPrice());
+        productDetailDTO.setDescription(p.getDescription());
+        productDetailDTO.setQuantity(p.getQuantity());
+        productDetailDTO.setImage(p.getImage());
+        return productDetailDTO;
+    }
+
 }

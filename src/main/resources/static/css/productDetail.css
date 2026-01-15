@@ -1,0 +1,80 @@
+/* ===== Reset ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f6f7fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== Page Container ===== */
+.product-detail {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 32px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Image ===== */
+.product-detail img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* ===== Info ===== */
+.product-info h1 {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #e53935;
+    margin: 12px 0;
+}
+
+.description {
+    margin: 16px 0;
+    color: #555;
+}
+
+/* ===== Stock ===== */
+.stock {
+    margin: 12px 0;
+    font-weight: bold;
+}
+
+.stock span {
+    color: #2e7d32;
+}
+
+/* ===== Button ===== */
+.btn-cart {
+    margin-top: 24px;
+    padding: 14px;
+    font-size: 16px;
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s ease;
+}
+
+.btn-cart:hover {
+    background-color: #084298;
+}

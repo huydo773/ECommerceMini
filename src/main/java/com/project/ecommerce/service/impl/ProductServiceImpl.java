@@ -1,6 +1,7 @@
 package com.project.ecommerce.service.impl;
 
 import com.project.ecommerce.dto.CategoryDTO;
+import com.project.ecommerce.dto.ProductDetailDTO;
 import com.project.ecommerce.dto.ProductListDTO;
 import com.project.ecommerce.dto.ProductManageDTO;
 import com.project.ecommerce.entity.Category;
@@ -78,6 +79,14 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(ProductMapper::toProductListDTO)
                 .toList();
+    }
+
+    @Override
+    public ProductDetailDTO getProductDetail(int id) {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        return ProductMapper.toProductDetailDTO(product);
     }
 
 }
