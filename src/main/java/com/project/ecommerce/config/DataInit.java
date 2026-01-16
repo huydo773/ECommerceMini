@@ -31,6 +31,7 @@ public class DataInit {
                 user.setUsername("admin");
                 user.setPassword(passwordEncoder.encode("admin123"));
                 user.setRole(adminRole);
+                user.setEmail("qdo547139@gmail.com");
                 userRepo.save(user);
             }
 

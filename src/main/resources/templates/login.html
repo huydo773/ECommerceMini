@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - E-Commerce Mini</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
 <body>
 <div class="container">
@@ -21,6 +21,9 @@
         <button type="submit">Login</button>
     </form>
     <p>Don't have an account? <a th:href="@{/auth/register}">Register</a></p>
+    <p>
+        <a th:href="@{/auth/forgot-password}">Quên mật khẩu?</a>
+    </p>
 </div>
 <script th:src="@{/js/login.js}"></script>
 </body>

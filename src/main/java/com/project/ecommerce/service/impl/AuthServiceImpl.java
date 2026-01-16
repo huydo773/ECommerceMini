@@ -1,9 +1,11 @@
 package com.project.ecommerce.service.impl;
 
 import com.project.ecommerce.dto.RegisterDTO;
+import com.project.ecommerce.entity.PasswordResetToken;
 import com.project.ecommerce.entity.Role;
 import com.project.ecommerce.entity.User;
 import com.project.ecommerce.mapper.UserMapper;
+import com.project.ecommerce.repository.PasswordResetTokenRepo;
 import com.project.ecommerce.repository.RoleRepo;
 import com.project.ecommerce.repository.UserRepo;
 import com.project.ecommerce.security.jwt.JwtUtil;
@@ -11,6 +13,8 @@ import com.project.ecommerce.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -25,6 +29,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private RoleRepo roleRepo;
+
+    @Autowired
+    private PasswordResetTokenRepo passwordResetTokenRepo;
 
 
     @Override
@@ -49,6 +56,26 @@ public class AuthServiceImpl implements AuthService {
         Role role = roleRepo.findRoleById(2);
         user.setRole(role);
         return userRepo.save(user);
+    }
+
+    @Override
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = passwordResetTokenRepo.findByToken(token);
+
+        if (resetToken == null) {
+            throw new RuntimeException("Token không hợp lệ");
+        }
+
+        if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Token đã hết hạn");
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = resetToken.getUser();
+        user.setPassword(encoder.encode(newPassword));
+        userRepo.save(user);
+
+        passwordResetTokenRepo.delete(resetToken);
     }
 
 }

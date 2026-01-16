@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface AuthService {
     String login(String username,String password);
     User register(RegisterDTO registerDTO);
+    void resetPassword(String token, String newPassword);
 }
