@@ -12,7 +12,10 @@ import com.project.ecommerce.repository.CategoryRepo;
 import com.project.ecommerce.repository.ProductRepo;
 import com.project.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -35,10 +38,27 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepo categoryRepo;
 
     @Override
-    public List<ProductManageDTO> getProductsForAdmin() {
-        List<Product> products = productRepo.findAll();
-        List<ProductManageDTO> productManageDTOs = productMapper.toProductManageDTO(products);
-        return productManageDTOs;
+    public Page<ProductManageDTO> getProductsForAdmin(String keyword, int page, int size,String sortType,String category,String quantityFilter) {
+        Sort sort = Sort.unsorted();
+
+
+        if ("cheap".equals(sortType)) {
+            sort = Sort.by("price").ascending(); // giá rẻ nhất
+        } else if ("stock".equals(sortType)) {
+            sort = Sort.by("quantity").descending(); // tồn kho nhiều nhất
+        }
+
+        Pageable pageable = PageRequest.of(page, size,sort);
+        Page<Product> productPage =
+                productRepo.filterProducts(
+                        keyword,
+                        category,
+                        "low".equals(quantityFilter) ? 4 : null,
+                        "available".equals(quantityFilter),
+                        "out".equals(quantityFilter),
+                        pageable
+                );
+        return productPage.map(productMapper::toProductManageDTO);
     }
 
     @Override

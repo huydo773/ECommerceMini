@@ -5,21 +5,7 @@
     <title>Product Management</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-    <style>
-        body { background: #f7f7f7; }
-        .container-box {
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-top: 30px;
-        }
-        .table thead tr {
-            background: #343a40;
-            color: #fff;
-        }
-        .btn-action { padding: 4px 10px; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/productManage.css}">
 </head>
 
 <body>
@@ -41,6 +27,91 @@
             <h3>Product List</h3>
             <a class="btn btn-primary" th:href="@{/dashboard/product/add}">+ Add Product</a>
         </div>
+
+        <form th:action="@{/dashboard/productManagement}" method="get"
+              class="mb-3 d-flex gap-2">
+            <input type="text"
+                   name="keyword"
+                   class="form-control w-25"
+                   placeholder="Search product..."
+                   th:value="${keyword}">
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+        <form method="get"
+              th:action="@{/dashboard/productManagement}"
+              class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <!-- 🔄 Reset -->
+                <a class="btn btn-outline-secondary btn-sm"
+                   th:href="@{/dashboard/productManagement}">
+                    🔄 Mặc định
+                </a>
+
+
+                <!-- 💰 Sort cheap -->
+                <a class="btn btn-outline-primary btn-sm"
+                   th:href="@{/dashboard/productManagement(sortType='cheap',
+categoryId=${categoryId},
+quantityFilter=${quantityFilter})}"
+                   th:classappend="${sortType == 'cheap'} ? ' active' : ''">
+                    💰 Giá rẻ nhất
+                </a>
+
+
+                <!-- 📦 Sort stock -->
+                <a class="btn btn-outline-success btn-sm"
+                   th:href="@{/dashboard/productManagement(sortType='stock',
+categoryId=${categoryId},
+quantityFilter=${quantityFilter})}"
+                   th:classappend="${sortType == 'stock'} ? ' active' : ''">
+                    📦 Tồn kho nhiều nhất
+                </a>
+            </div>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+
+                <select name="category" class="form-select form-select-sm w-auto">
+                    <option value="">Category</option>
+                    <option value="PC"
+                            th:selected="${category == 'PC'}">
+                        PC
+                    </option>
+                    <option value="Laptop"
+                            th:selected="${category == 'Laptop'}">
+                        Laptop
+                    </option>
+                </select>
+
+
+                <!-- Quantity -->
+                <select name="quantityFilter" class="form-select form-select-sm w-auto">
+                    <option value="">Quantity</option>
+                    <option value="available"
+                            th:selected="${quantityFilter == 'available'}">
+                        Còn hàng
+                    </option>
+                    <option value="low"
+                            th:selected="${quantityFilter == 'low'}">
+                        Sắp hết hàng
+                    </option>
+                    <option value="out"
+                            th:selected="${quantityFilter == 'out'}">
+                        Hết hàng
+                    </option>
+                </select>
+
+
+                <!-- Hidden giữ sort khi submit -->
+                <input type="hidden" name="sortType" th:value="${sortType}">
+
+
+                <!-- Submit -->
+                <button class="btn btn-primary btn-sm">
+                    Lọc
+                </button>
+            </div>
+
+        </form>
 
         <table class="table table-bordered table-hover">
             <thead>
@@ -64,7 +135,9 @@
                 <td th:text="${p.productPrice}"></td>
                 <td th:text="${p.productQuantity}"></td>
                 <td th:text="${p.productCategory}"></td>
-                <td th:text="${p.productImage}"></td>
+                <td>
+                    <img th:src="${p.productImage}" alt="Product Image" width="80">
+                </td>
                 <td>
                     <a class="btn btn-sm btn-warning btn-action"
                        th:href="@{'/dashboard/product/edit/' + ${p.id}}">Edit</a>
@@ -78,6 +151,33 @@
 
         </table>
     </div>
+    <div class="pagination">
+
+
+        <a class="prev"
+           th:if="${currentPage > 0}"
+           th:href="@{/dashboard/productManagement(page=${currentPage - 1}, keyword=${keyword})}">
+            Prev
+        </a>
+
+
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+<a th:href="@{/dashboard/productManagement(page=${i}, keyword=${keyword})}"
+   th:text="${i + 1}"
+   th:classappend="${i == currentPage} ? 'active' : ''">
+</a>
+</span>
+
+
+        <a class="next"
+           th:if="${currentPage < totalPages - 1}"
+           th:href="@{/dashboard/productManagement(page=${currentPage + 1}, keyword=${keyword})}">
+            Next
+        </a>
+
+
+    </div>
+
 </div>
 
 </body>
