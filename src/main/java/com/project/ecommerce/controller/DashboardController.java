@@ -28,7 +28,7 @@ public class DashboardController {
         return "dashboard"; // dashboard.html
     }
 
-    @GetMapping("/productManagement")
+    @GetMapping("/products")
     public String productPage(
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "page", defaultValue = "0") int page,

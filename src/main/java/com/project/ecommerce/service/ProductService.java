@@ -13,12 +13,14 @@ import java.util.Map;
 public interface ProductService {
     Page<ProductManageDTO> getProductsForAdmin(String keyword, int page, int size,String sortType,String category,String quantityFilter);
 
-    Product getProductById(int id);
+    ProductManageDTO getProductById(int id);
 
     Map<CategoryDTO, List<ProductListDTO>> getFeaturedProductsForHome();
 
     List<ProductListDTO> getProductsByCategory(int categoryId);
 
     ProductDetailDTO getProductDetail(int id);
+
+    void update(ProductManageDTO product);
 
 }

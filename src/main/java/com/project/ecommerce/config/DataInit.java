@@ -22,15 +22,15 @@ public class DataInit {
     @Bean
     CommandLineRunner initUsers(UserRepo userRepo, RoleRepo roleRepo, ProductRepo productRepo, CategoryRepo categoryRepo) {
         return args -> {
-            if (userRepo.findByUsername("admin").isEmpty()) {
-                Role adminRole = new Role();
-                adminRole.setRoleName("Admin");
-                roleRepo.save(adminRole);
+            if (userRepo.findByUsername("seller").isEmpty()) {
+                Role sellerRole = new Role();
+                sellerRole.setRoleName("seller");
+                roleRepo.save(sellerRole);
 
                 User user = new User();
-                user.setUsername("admin");
-                user.setPassword(passwordEncoder.encode("admin123"));
-                user.setRole(adminRole);
+                user.setUsername("seller");
+                user.setPassword(passwordEncoder.encode("seller123"));
+                user.setRole(sellerRole);
                 user.setEmail("qdo547139@gmail.com");
                 userRepo.save(user);
             }
@@ -48,30 +48,35 @@ public class DataInit {
             }
 
             //Tao product
-            Product product1 = new Product();
-            product1.setProductName("PC gaming");
-            product1.setDescription("TuyetVoi");
-            product1.setPrice(50.0);
-            product1.setQuantity(3);
-            product1.setImage("https://th.bing.com/th/id/OIP.8vV5DxsTNqVwrxbQ1Vw_swHaHa?w=169&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7");
-            Category category1 = new Category();
-            category1.setCategoryName("PC");
-            categoryRepo.save(category1);
-            product1.setCategory(category1);
-            productRepo.save(product1);
+            if (!productRepo.existsByProductCode("PC001")) {
+                Product product1 = new Product();
+                product1.setProductCode("PC001");
+                product1.setProductName("PC gaming");
+                product1.setDescription("TuyetVoi");
+                product1.setPrice(50.0);
+                product1.setQuantity(3);
+                product1.setImage("https://th.bing.com/th/id/OIP.8vV5DxsTNqVwrxbQ1Vw_swHaHa?w=169&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+                Category category1 = new Category();
+                category1.setCategoryName("PC");
+                categoryRepo.save(category1);
+                product1.setCategory(category1);
+                productRepo.save(product1);
+            }
 
-
-            Product product2 = new Product();
-            product2.setProductName("Lenovo LOQ 2024");
-            product2.setDescription("Fantastic");
-            product2.setPrice(40.0);
-            product2.setQuantity(5);
-            product2.setImage("https://th.bing.com/th/id/OIP.gH5DgPZjsxgemckNwlR1bAHaGk?w=204&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7");
-            Category category2 = new Category();
-            category2.setCategoryName("Laptop");
-            categoryRepo.save(category2);
-            product2.setCategory(category2);
-            productRepo.save(product2);
+            if (!productRepo.existsByProductCode("LT001")) {
+                Product product2 = new Product();
+                product2.setProductCode("LT001");
+                product2.setProductName("Lenovo LOQ 2024");
+                product2.setDescription("Fantastic");
+                product2.setPrice(40.0);
+                product2.setQuantity(5);
+                product2.setImage("https://th.bing.com/th/id/OIP.gH5DgPZjsxgemckNwlR1bAHaGk?w=204&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+                Category category2 = new Category();
+                category2.setCategoryName("Laptop");
+                categoryRepo.save(category2);
+                product2.setCategory(category2);
+                productRepo.save(product2);
+            }
         };
     }
 }

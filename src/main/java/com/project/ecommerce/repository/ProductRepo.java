@@ -45,4 +45,6 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
             @Param("outOfStock") boolean outOfStock,
             Pageable pageable
     );
+
+    boolean existsByProductCode(String productCode);
 }

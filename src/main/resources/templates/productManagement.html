@@ -13,7 +13,7 @@
     <h2>Dashboard</h2>
     <ul>
         <li><a th:href="@{/dashboard/home}">Home</a></li>
-        <li><a th:href="@{/dashboard/productManagement}">Products</a></li>
+        <li><a th:href="@{/dashboard/products}">Products</a></li>
         <li><a th:href="@{/dashboard/order}">Order</a></li>
         <li><a th:href="@{/dashboard/user}">Users</a></li>
         <li><a th:href="@{/dashboard/voucher}">Voucher</a></li>
@@ -28,7 +28,7 @@
             <a class="btn btn-primary" th:href="@{/dashboard/product/add}">+ Add Product</a>
         </div>
 
-        <form th:action="@{/dashboard/productManagement}" method="get"
+        <form th:action="@{/dashboard/products}" method="get"
               class="mb-3 d-flex gap-2">
             <input type="text"
                    name="keyword"
@@ -38,20 +38,20 @@
             <button type="submit" class="btn btn-secondary">Search</button>
         </form>
         <form method="get"
-              th:action="@{/dashboard/productManagement}"
+              th:action="@{/dashboard/products}"
               class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
             <div class="d-flex align-items-center gap-2 flex-wrap">
                 <!-- 🔄 Reset -->
                 <a class="btn btn-outline-secondary btn-sm"
-                   th:href="@{/dashboard/productManagement}">
+                   th:href="@{/dashboard/products}">
                     🔄 Mặc định
                 </a>
 
 
                 <!-- 💰 Sort cheap -->
                 <a class="btn btn-outline-primary btn-sm"
-                   th:href="@{/dashboard/productManagement(sortType='cheap',
+                   th:href="@{/dashboard/products(sortType='cheap',
 categoryId=${categoryId},
 quantityFilter=${quantityFilter})}"
                    th:classappend="${sortType == 'cheap'} ? ' active' : ''">
@@ -61,7 +61,7 @@ quantityFilter=${quantityFilter})}"
 
                 <!-- 📦 Sort stock -->
                 <a class="btn btn-outline-success btn-sm"
-                   th:href="@{/dashboard/productManagement(sortType='stock',
+                   th:href="@{/dashboard/products(sortType='stock',
 categoryId=${categoryId},
 quantityFilter=${quantityFilter})}"
                    th:classappend="${sortType == 'stock'} ? ' active' : ''">
@@ -117,6 +117,7 @@ quantityFilter=${quantityFilter})}"
             <thead>
             <tr>
                 <th>No</th>
+                <th>Code</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -130,11 +131,12 @@ quantityFilter=${quantityFilter})}"
             <tbody>
             <tr th:each="p, iter : ${products}">
                 <td th:text="${iter.index + 1}"></td>
+                <td th:text="${p.productCode}"></td>
                 <td th:text="${p.productName}"></td>
                 <td th:text="${p.productDescription}"></td>
                 <td th:text="${p.productPrice}"></td>
                 <td th:text="${p.productQuantity}"></td>
-                <td th:text="${p.productCategory}"></td>
+                <td th:text="${p.productCategory.categoryName}"></td>
                 <td>
                     <img th:src="${p.productImage}" alt="Product Image" width="80">
                 </td>
@@ -156,13 +158,13 @@ quantityFilter=${quantityFilter})}"
 
         <a class="prev"
            th:if="${currentPage > 0}"
-           th:href="@{/dashboard/productManagement(page=${currentPage - 1}, keyword=${keyword})}">
+           th:href="@{/dashboard/products(page=${currentPage - 1}, keyword=${keyword})}">
             Prev
         </a>
 
 
         <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-<a th:href="@{/dashboard/productManagement(page=${i}, keyword=${keyword})}"
+<a th:href="@{/dashboard/products(page=${i}, keyword=${keyword})}"
    th:text="${i + 1}"
    th:classappend="${i == currentPage} ? 'active' : ''">
 </a>
@@ -171,7 +173,7 @@ quantityFilter=${quantityFilter})}"
 
         <a class="next"
            th:if="${currentPage < totalPages - 1}"
-           th:href="@{/dashboard/productManagement(page=${currentPage + 1}, keyword=${keyword})}">
+           th:href="@{/dashboard/products(page=${currentPage + 1}, keyword=${keyword})}">
             Next
         </a>
 

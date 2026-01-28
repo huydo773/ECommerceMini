@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepo categoryRepo;
 
     @Override
-    public Page<ProductManageDTO> getProductsForAdmin(String keyword, int page, int size,String sortType,String category,String quantityFilter) {
+    public Page<ProductManageDTO> getProductsForAdmin(String keyword, int page, int size, String sortType, String category, String quantityFilter) {
         Sort sort = Sort.unsorted();
 
 
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
             sort = Sort.by("quantity").descending(); // tồn kho nhiều nhất
         }
 
-        Pageable pageable = PageRequest.of(page, size,sort);
+        Pageable pageable = PageRequest.of(page, size, sort);
         Page<Product> productPage =
                 productRepo.filterProducts(
                         keyword,
@@ -62,9 +62,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(int id) {
-        return productRepo.findById(id)
+    public ProductManageDTO getProductById(int id) {
+        Product product = productRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        return productMapper.toProductManageDTO(product);
     }
 
     @Override
@@ -107,6 +109,22 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
         return ProductMapper.toProductDetailDTO(product);
+    }
+
+   @Override
+    public void update(ProductManageDTO productDTO) {
+        Product product = productRepo.findById(productDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        productMapper.updateProductFromDTO(productDTO, product);
+
+        if (productDTO.getProductCategory().getId() != 0) {
+            Category category = categoryRepo.findById(productDTO.getProductCategory().getId())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+            product.setCategory(category);
+        }
+
+        productRepo.save(product);
     }
 
 }

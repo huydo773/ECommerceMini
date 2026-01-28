@@ -1,17 +1,21 @@
 package com.project.ecommerce.dto;
 
+import com.project.ecommerce.entity.Category;
+
 public class ProductManageDTO {
     private int id;
+    private String productCode;
     private String productName;
     private String productDescription;
     private double productPrice;
-    private String productCategory;
+    private Category productCategory;
     private String productImage;
     private int productQuantity;
     public ProductManageDTO() {
     }
 
-    public ProductManageDTO(String productName, String productDescription, double productPrice, String productCategory, String productImage, int productQuantity) {
+    public ProductManageDTO(String productCode ,String productName, String productDescription, double productPrice, Category productCategory, String productImage, int productQuantity) {
+        this.productCode = productCode;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
@@ -26,6 +30,14 @@ public class ProductManageDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public String getProductName() {
@@ -52,11 +64,11 @@ public class ProductManageDTO {
         this.productPrice = productPrice;
     }
 
-    public String getProductCategory() {
+    public Category getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(String productCategory) {
+    public void setProductCategory(Category productCategory) {
         this.productCategory = productCategory;
     }
 

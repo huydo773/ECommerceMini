@@ -1,0 +1,60 @@
+/* ===== Layout chung ===== */
+body {
+background-color: #f4f6f9;
+font-family: 'Segoe UI', Tahoma, sans-serif;
+margin: 0;
+}
+/* ===== Main content ===== */
+.container {
+margin-left: 240px;
+padding: 40px;
+}
+
+
+/* ===== Edit box ===== */
+.container-box {
+background: #ffffff;
+padding: 30px;
+border-radius: 14px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+max-width: 720px;
+}
+
+
+/* ===== Title ===== */
+.container-box h3 {
+font-weight: 600;
+color: #2c3e50;
+}
+
+
+/* ===== Form ===== */
+.form-label {
+font-weight: 500;
+margin-bottom: 6px;
+}
+
+
+.form-control,
+.form-select {
+border-radius: 8px;
+}
+
+
+.form-control:focus,
+.form-select:focus {
+box-shadow: none;
+border-color: #0d6efd;
+}
+
+
+/* ===== Buttons ===== */
+.btn {
+border-radius: 8px;
+padding: 8px 22px;
+}
+
+
+.btn-secondary {
+margin-left: 10px;
+}
