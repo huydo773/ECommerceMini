@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/dashboard/product")
@@ -31,8 +32,20 @@ public class ProductCRUDController {
     }
 
     @PostMapping("/edit")
-    public String updateProduct(@ModelAttribute ProductManageDTO product) {
+    public String updateProduct(@ModelAttribute ProductManageDTO product, @RequestParam("imageFile") MultipartFile imageFile) {
+
+        if (!imageFile.isEmpty()) {
+            String fileName = productService.saveImage(imageFile);
+            product.setProductImage(fileName);
+        }
+
         productService.update(product);
+        return "redirect:/dashboard/products";
+    }
+
+    @PostMapping("/delete")
+    public String deleteProduct(@RequestParam int id) {
+        productService.delete(id);
         return "redirect:/dashboard/products";
     }
 }

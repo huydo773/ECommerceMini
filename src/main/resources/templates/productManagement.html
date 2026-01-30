@@ -138,15 +138,27 @@ quantityFilter=${quantityFilter})}"
                 <td th:text="${p.productQuantity}"></td>
                 <td th:text="${p.productCategory.categoryName}"></td>
                 <td>
-                    <img th:src="${p.productImage}" alt="Product Image" width="80">
+                    <img th:src="@{'/images/' + ${p.productImage}}"
+                         alt="Product Image"
+                         width="80"
+                         style="object-fit: cover; border-radius: 6px;">
                 </td>
                 <td>
                     <a class="btn btn-sm btn-warning btn-action"
                        th:href="@{'/dashboard/product/edit/' + ${p.id}}">Edit</a>
 
-                    <a class="btn btn-sm btn-danger btn-action"
-                       th:href="@{'/dashboard/product/delete/' + ${p.id}}"
-                       onclick="return confirm('Delete this product?')">Delete</a>
+                    <form th:action="@{/dashboard/product/delete}"
+                          method="post"
+                          style="display:inline"
+                          onsubmit="return confirm('Delete this product?')">
+
+                        <input type="hidden" name="id" th:value="${p.id}" />
+
+                        <button type="submit"
+                                class="btn btn-sm btn-danger btn-action">
+                            Delete
+                        </button>
+                    </form>
                 </td>
             </tr>
             </tbody>

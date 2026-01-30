@@ -17,7 +17,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,6 +130,37 @@ public class ProductServiceImpl implements ProductService {
         }
 
         productRepo.save(product);
+    }
+
+    @Override
+    public void delete(int id) {
+        if (!productRepo.existsById(id)) {
+            throw new RuntimeException("Product not found with id: " + id);
+        }
+        productRepo.deleteById(id);
+    }
+
+    @Override
+    public String saveImage(MultipartFile imageFile) {
+
+        try {
+            String uploadDir = "upload/images";
+
+            String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            Files.copy(imageFile.getInputStream(),
+                    uploadPath.resolve(fileName),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+            return fileName;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload image", e);
+        }
     }
 
 }
