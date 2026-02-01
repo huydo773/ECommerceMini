@@ -23,6 +23,18 @@ public class ProductMapper {
         productManageDTO.setProductImage(product.getImage());
         return productManageDTO;
     }
+    public Product toProduct(ProductManageDTO productManageDTO) {
+        Product product = new Product();
+        product.setId(productManageDTO.getId());
+        product.setProductCode(productManageDTO.getProductCode());
+        product.setProductName(productManageDTO.getProductName());
+        product.setDescription(productManageDTO.getProductDescription());
+        product.setPrice(productManageDTO.getProductPrice());
+        product.setQuantity(productManageDTO.getProductQuantity());
+        product.setCategory(productManageDTO.getProductCategory());
+        product.setImage(productManageDTO.getProductImage());
+        return product;
+    }
 
     public void updateProductFromDTO(ProductManageDTO dto,
                                      Product product) {

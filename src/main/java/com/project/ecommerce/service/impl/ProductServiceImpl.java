@@ -17,12 +17,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.util.HexFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +45,35 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CategoryRepo categoryRepo;
+
+    private String getCategoryPrefix(String categoryName) {
+        if (categoryName == null) return "PR";
+
+        switch (categoryName.toLowerCase()) {
+            case "laptop":
+                return "LT";
+            case "pc":
+                return "PC";
+            default:
+                return "PR";
+        }
+    }
+
+    private String generateProductCode(String categoryName) {
+        String prefix = getCategoryPrefix(categoryName);
+
+        int count = productRepo.countByProductCodeStartingWith(prefix);
+        int next = count + 1;
+
+        return prefix + String.format("%03d", next);
+    }
+
+    private String hashFile(MultipartFile file) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(file.getBytes());
+
+        return HexFormat.of().formatHex(hash);
+    }
 
     @Override
     public Page<ProductManageDTO> getProductsForAdmin(String keyword, int page, int size, String sortType, String category, String quantityFilter) {
@@ -140,27 +173,46 @@ public class ProductServiceImpl implements ProductService {
         productRepo.deleteById(id);
     }
 
-    @Override
     public String saveImage(MultipartFile imageFile) {
 
         try {
             String uploadDir = "upload/images";
+            Files.createDirectories(Paths.get(uploadDir));
 
-            String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+            String hash = hashFile(imageFile);
 
-            Path uploadPath = Paths.get(uploadDir);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
+            String ext = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
+            String fileName = hash + "." + ext;
+
+            Path target = Paths.get(uploadDir, fileName);
+
+            if (Files.exists(target)) {
+                return fileName;
             }
 
-            Files.copy(imageFile.getInputStream(),
-                    uploadPath.resolve(fileName),
-                    StandardCopyOption.REPLACE_EXISTING);
-
+            Files.copy(imageFile.getInputStream(), target);
             return fileName;
+
         } catch (Exception e) {
-            throw new RuntimeException("Failed to upload image", e);
+            throw new RuntimeException("Upload image failed", e);
         }
+    }
+
+    @Override
+    public void addProduct(ProductManageDTO dto, MultipartFile imageFile) {
+
+        dto.setProductImage(saveImage(imageFile));
+
+        Category category = categoryRepo
+                .findById(dto.getProductCategory().getId())
+                .orElseThrow();
+
+        dto.setProductCode(generateProductCode(category.getCategoryName()));
+
+        Product product = productMapper.toProduct(dto);
+        product.setCategory(category);
+
+        productRepo.save(product);
     }
 
 }

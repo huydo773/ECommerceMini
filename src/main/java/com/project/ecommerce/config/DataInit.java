@@ -53,9 +53,9 @@ public class DataInit {
                 product1.setProductCode("PC001");
                 product1.setProductName("PC gaming");
                 product1.setDescription("TuyetVoi");
+                product1.setImage("pc.jpg");
                 product1.setPrice(50.0);
                 product1.setQuantity(3);
-                product1.setImage("https://th.bing.com/th/id/OIP.8vV5DxsTNqVwrxbQ1Vw_swHaHa?w=169&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7");
                 Category category1 = new Category();
                 category1.setCategoryName("PC");
                 categoryRepo.save(category1);
@@ -68,9 +68,9 @@ public class DataInit {
                 product2.setProductCode("LT001");
                 product2.setProductName("Lenovo LOQ 2024");
                 product2.setDescription("Fantastic");
+                product2.setImage("laptop.jpg");
                 product2.setPrice(40.0);
                 product2.setQuantity(5);
-                product2.setImage("https://th.bing.com/th/id/OIP.gH5DgPZjsxgemckNwlR1bAHaGk?w=204&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7");
                 Category category2 = new Category();
                 category2.setCategoryName("Laptop");
                 categoryRepo.save(category2);

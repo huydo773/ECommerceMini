@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/dashboard/product")
 public class ProductCRUDController {
@@ -46,6 +48,22 @@ public class ProductCRUDController {
     @PostMapping("/delete")
     public String deleteProduct(@RequestParam int id) {
         productService.delete(id);
+        return "redirect:/dashboard/products";
+    }
+    @GetMapping("/add")
+    public String showAddProduct(Model model) {
+        model.addAttribute("product", new ProductManageDTO());
+        model.addAttribute("categories", categoryService.getFeaturedCategories());
+        return "product-add";
+    }
+
+    @PostMapping("/add")
+    public String addProduct(
+            @ModelAttribute ProductManageDTO product,
+            @RequestParam MultipartFile imageFile
+    ) throws IOException {
+
+        productService.addProduct(product, imageFile);
         return "redirect:/dashboard/products";
     }
 }

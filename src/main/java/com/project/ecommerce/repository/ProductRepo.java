@@ -46,5 +46,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
             Pageable pageable
     );
 
+    int countByProductCodeStartingWith(String prefix);
+
     boolean existsByProductCode(String productCode);
 }
