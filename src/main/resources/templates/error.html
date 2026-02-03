@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
+<body>
+
+<div class="error-box">
+    <h1 th:text="${status}"></h1>
+    <p th:text="${error}"></p>
+    <p th:text="${message}"></p>
+
+    <a href="javascript:history.back()">Go Back</a>
+</div>
+
+</body>
+</html>

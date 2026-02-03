@@ -25,6 +25,7 @@ public class DashboardController {
     @GetMapping("/home")
     public String dashboardPage(Model model) {
         model.addAttribute("totalUsers",statisticService.countAllUser());
+        model.addAttribute("totalProducts",statisticService.countAllProduct());
         return "dashboard"; // dashboard.html
     }
 

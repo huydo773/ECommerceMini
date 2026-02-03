@@ -14,7 +14,10 @@
              th:each="p : ${productList}">
 
             <a th:href="@{/products/{id}(id=${p.id})}">
-                <img th:src="${p.image}">
+                <img th:src="@{'/images/' + ${p.image}}"
+                     alt="Product Image"
+                     width="80"
+                     style="object-fit: cover; border-radius: 6px;">
             </a>
 
             <h4 th:text="${p.productName}"></h4>

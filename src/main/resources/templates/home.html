@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecommerce Mini - Home</title>
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 
 <body>
@@ -75,7 +75,10 @@
              th:each="product : ${entry.value}">
 
             <a th:href="@{/products/{id}(id=${product.id})}">
-                <img th:src="${product.image}">
+                <img th:src="@{'/images/' + ${product.image}}"
+                     alt="Product Image"
+                     width="80"
+                     style="object-fit: cover; border-radius: 6px;">
             </a>
 
             <h4 th:text="${product.productName}"></h4>
